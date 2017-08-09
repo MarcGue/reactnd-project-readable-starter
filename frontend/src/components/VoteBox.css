@@ -1,0 +1,10 @@
+.voteBox {
+    padding: 1rem;
+    text-align: center;
+    font-size: 3rem;
+    color: grey;
+}
+
+.vote {
+    cursor: pointer;
+}
