@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { fetchPosts, fetchPostsByCategory } from '../actions'
 import VoteBox from './VoteBox'
+
 
 class Posts extends Component {
 
     componentDidMount() {
-        console.log(this.props)
+        const { dispatch, category } = this.props
+        if (category) {
+            dispatch(fetchPostsByCategory(category))
+        } else {
+            dispatch(fetchPosts())
+        }
     }
 
     render() {
@@ -24,4 +31,9 @@ class Posts extends Component {
         )
     }
 }
-export default connect()(Posts)
+
+const mapStateToProps = state => ({
+    posts: state.posts.items
+})
+
+export default connect(mapStateToProps)(Posts)
