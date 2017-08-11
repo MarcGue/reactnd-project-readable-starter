@@ -5,6 +5,14 @@ import { fetchCategories, fetchPosts, fetchPostsByCategory } from './actions'
 import Posts from './components/Posts'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      categories: [],
+      posts: []
+    }
+  }
 
   componentDidMount() {
     const { dispatch } = this.props
@@ -44,15 +52,9 @@ class App extends Component {
 const mapStateToProps = state => {
   const { categories, posts } = state
   return {
-    categories: [],
-    posts: []
+    categories: categories.items,
+    posts: posts.items
   } 
 }
-
-// function mapDispatchToProps (dispatch) {
-//   return {
-
-//   }
-// }
 
 export default withRouter(connect(mapStateToProps)(App))
