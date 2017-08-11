@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories, fetchPosts, fetchPostsByCategory } from './actions'
 import Posts from './components/Posts'
@@ -19,13 +20,16 @@ class App extends Component {
     const { categories, posts } = this.props
     return (
       <div>
-        <Posts 
-          posts={ posts }
-          onClickCategory={ this.handleClickCategory }
-        />
+        <Route exact path="/" render={() => (
+            <Posts 
+              posts={ posts }
+              onClickCategory={ this.handleClickCategory }
+            />
+        )}/>
+
         <ul>
           { categories.map(category => (
-            <li>
+            <li key={ category }>
               <button onClick={ e => this.handleClickCategory(category) }>
                 { category }
               </button>
@@ -40,8 +44,8 @@ class App extends Component {
 const mapStateToProps = state => {
   const { categories, posts } = state
   return {
-    categories: categories.items,
-    posts: posts.items
+    categories: [],
+    posts: []
   } 
 }
 
@@ -51,6 +55,4 @@ const mapStateToProps = state => {
 //   }
 // }
 
-export default connect(
-  mapStateToProps
-)(App)
+export default withRouter(connect(mapStateToProps)(App))

@@ -65,6 +65,8 @@ export const receivePostsByCategory = (category, posts) => ({
 export const incrementPostScore = (post) => dispatch => {
     dispatch(requestIncrementPostScore(post))
     return API.incrementPostScore(post)
+        .then(response => response.json())
+        .then(data => dispatch(receiveIncrementPostScore(data)))
 }
 
 export const requestIncrementPostScore = (post) => ({
