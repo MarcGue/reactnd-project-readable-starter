@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import VoteBox from './VoteBox'
 
 class Posts extends Component {
+
+    componentDidMount() {
+        console.log(this.props)
+    }
 
     render() {
         const { posts } = this.props
@@ -8,6 +14,9 @@ class Posts extends Component {
             <ul>
                 { posts.map(post => (
                     <li key={ post.id }>
+                        <VoteBox 
+                            voteScore={ post.voteScore }
+                        />
                         <h1>{ post.title }</h1>
                     </li>
                 ))}
@@ -15,4 +24,4 @@ class Posts extends Component {
         )
     }
 }
-export default Posts
+export default connect()(Posts)

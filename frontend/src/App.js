@@ -28,16 +28,28 @@ class App extends Component {
     const { categories, posts } = this.props
     return (
       <div>
-        <Route exact path="/" render={() => (
+        <Route exact path='/' render={() => (
+          <Posts 
+            posts={ posts }
+            onClickCategory={ this.handleClickCategory }
+          />
+        )}/>
+        <Route path="/category/:category" render={({match}) => (
+          <div>
+            <h1>Category - { match.params.category }</h1>
             <Posts 
-              posts={ posts }
-              onClickCategory={ this.handleClickCategory }
+              category = { match.params.category }
+              posts = { posts }
             />
+          </div>
         )}/>
 
         <ul>
           { categories.map(category => (
             <li key={ category }>
+              <Link to={'/category/' + category}>
+                  {category}
+              </Link>
               <button onClick={ e => this.handleClickCategory(category) }>
                 { category }
               </button>
