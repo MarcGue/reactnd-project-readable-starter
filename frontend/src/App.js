@@ -19,9 +19,7 @@ class App extends Component {
     return (
       <div>
         <Route exact path='/' render={() => (
-          <Posts 
-            onClickCategory={ this.handleClickCategory }
-          />
+          <Posts />
         )}/>
         <Route path="/category/:category" render={({match}) => (
           <div>

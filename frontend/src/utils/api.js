@@ -27,3 +27,7 @@ export const incrementPostScore = (post) => {
 	    })
     })
 }
+
+export const fetchCommentyByPost = (post) => {
+    return fetch(`${API_URL}/posts/${post.id}/comments`, { headers })
+}
