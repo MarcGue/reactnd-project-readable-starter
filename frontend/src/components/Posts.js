@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts, fetchPostsByCategory, fetchCommentsByPost } from '../actions'
+import { fetchPosts, fetchPostsByCategory } from '../actions'
+import * as API from '../utils/api'
 import VoteBox from './VoteBox'
 
 
@@ -22,8 +23,12 @@ class Posts extends Component {
         }
     }
 
+    getComments = (post) => {
+        API.fetchCommentyByPost(post).then(response => response.json()).then(json => console.log(json))
+    }
+
     render() {
-        const { posts, dispatch, fetchCommentsByPost } = this.props
+        const { posts } = this.props
         return (
             <ul>
                 { posts.map(post => (
@@ -34,7 +39,7 @@ class Posts extends Component {
                         />
                         <h1>{ post.title }</h1>
                         <div>Author: { post.author }</div>
-                        <div>Kommentare</div>
+                        <div>Kommentare {this.getComments(post)}</div>
                     </li>
                 ))}
             </ul>
