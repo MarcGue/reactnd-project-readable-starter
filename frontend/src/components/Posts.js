@@ -38,7 +38,7 @@ class Posts extends Component {
                     
                     <li key={ post.id }>
                         <VoteBox 
-                            voteScore={ post.voteScore }
+                            post={post}
                         />
                         <h1>{ post.title }</h1>
                         <div>Author: { post.author }</div>

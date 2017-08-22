@@ -18,12 +18,12 @@ export const fetchPostsByCategory = (category) => {
     return fetch(`${API_URL}/${category}/posts`, { headers })
 }
 
-export const incrementPostScore = (post) => {
+export const updatePostScore = (post, option) => {
     return fetch(API_URL + '/posts/' + post.id, {
         headers,
         method: 'POST',
         body: JSON.stringify({
-            option: 'upVote'
+            option: option
 	    })
     })
 }

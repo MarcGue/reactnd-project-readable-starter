@@ -12,6 +12,9 @@ export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const REQUEST_INCREMENT_POST_SCORE = 'REQUEST_INCREMENT_POST_SCORE'
 export const RECEIVE_INCREMENT_POST_SCORE = 'RECEIVE_INCREMENT_POST_SCORE'
 
+export const REQUEST_DECREMENT_POST_SCORE = 'REQUEST_DECREMENT_POST_SCORE'
+export const RECEIVE_DECREMENT_POST_SCORE = 'RECEIVE_DECREMENT_POST_SCORE'
+
 export const REQUEST_COMMENTS_BY_POST = 'REQUEST_COMMENTS_BY_POST'
 export const RECEIVE_COMMENTS_BY_POST = 'RECEIVE_COMMENTS_BY_POST'
 
@@ -78,7 +81,7 @@ export const receivePostsByCategory = (category, posts) => ({
 
 export const incrementPostScore = (post) => dispatch => {
     dispatch(requestIncrementPostScore(post))
-    return API.incrementPostScore(post)
+    return API.updatePostScore(post, 'upVote')
         .then(response => response.json())
         .then(data => dispatch(receiveIncrementPostScore(data)))
 }
@@ -90,7 +93,24 @@ export const requestIncrementPostScore = (post) => ({
 
 export const receiveIncrementPostScore = (post) => ({
     type: RECEIVE_INCREMENT_POST_SCORE,
-    post: post
+    post
+})
+
+export const decrementPostScore = (post) => dispatch => {
+    dispatch(requestDecrementPostScore(post))
+    return API.updatePostScore(post, 'downVote')
+        .then(response => response.json())
+        .then(data => dispatch(receiveDecrementPostScore(data)))
+}
+
+export const requestDecrementPostScore = (post) => ({
+    type: REQUEST_DECREMENT_POST_SCORE,
+    post
+})
+
+export const receiveDecrementPostScore = (post) => ({
+    type: RECEIVE_DECREMENT_POST_SCORE,
+    post
 })
 
 export const fetchCommentsByPost = (post) => dispatch => {
