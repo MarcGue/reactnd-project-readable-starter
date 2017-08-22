@@ -12,6 +12,9 @@ export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const REQUEST_INCREMENT_POST_SCORE = 'REQUEST_INCREMENT_POST_SCORE'
 export const RECEIVE_INCREMENT_POST_SCORE = 'RECEIVE_INCREMENT_POST_SCORE'
 
+export const REQUEST_COMMENTS_BY_POST = 'REQUEST_COMMENTS_BY_POST'
+export const RECEIVE_COMMENTS_BY_POST = 'RECEIVE_COMMENTS_BY_POST'
+
 export const fetchCategories = () => dispatch => {
     dispatch(requestCategories())
     return API.fetchCategories()
@@ -32,7 +35,13 @@ export const fetchPosts = () => dispatch => {
     dispatch(requestPosts())
     return API.fetchPosts()
         .then(response => response.json())
-        .then(json => dispatch(receivePosts(json)))
+        .then(posts => {
+            dispatch(receivePosts(posts))
+            for (let post of posts) {
+                dispatch(fetchCommentsByPost(post))
+            }
+        })
+        
 }
 
 export const requestPosts = () => ({
@@ -48,7 +57,12 @@ export const fetchPostsByCategory = (category) => dispatch => {
     dispatch(requestPostsByCategory(category))
     return API.fetchPostsByCategory(category)
         .then(response => response.json())
-        .then(json => dispatch(receivePostsByCategory(category, json)))
+        .then(posts => {
+            dispatch(receivePostsByCategory(category, posts))
+            for (let post of posts) {
+                dispatch(fetchCommentsByPost(post))
+            }
+        })
 }
 
 export const requestPostsByCategory = (category) => ({
@@ -77,4 +91,22 @@ export const requestIncrementPostScore = (post) => ({
 export const receiveIncrementPostScore = (post) => ({
     type: RECEIVE_INCREMENT_POST_SCORE,
     post: post
+})
+
+export const fetchCommentsByPost = (post) => dispatch => {
+    dispatch(requestCommentsByPost(post))
+    return API.fetchCommentyByPost(post)
+        .then(response => response.json())
+        .then(data => dispatch(receiveCommentsByPost(post, data)))
+}
+
+export const requestCommentsByPost = (post) => ({
+    type: REQUEST_COMMENTS_BY_POST,
+    post
+})
+
+export const receiveCommentsByPost = (post, comments) => ({
+    type: RECEIVE_COMMENTS_BY_POST,
+    post,
+    comments
 })
