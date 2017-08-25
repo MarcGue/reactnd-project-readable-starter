@@ -4,8 +4,7 @@ import {
 } from '../actions'
 
 export const comments = (state = {
-    isFetching: false,
-    items: []
+    isFetching: false
 }, action) => {
     switch(action.type) {
         case REQUEST_COMMENTS_BY_POST:

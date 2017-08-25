@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { incrementPostScore } from '../actions'
 import VoteBox from './VoteBox'
 
 class Post extends Component {
 
-    handleIncrementScore = (post) => {
-        this.props.dispatch(incrementPostScore(post))
+    getCommentSize = (postId) => {
+        const { comments } = this.props
+        if (comments[postId]) {
+            return comments[postId].length
+        }
+        return 0
     }
 
     render() {
@@ -14,15 +18,17 @@ class Post extends Component {
 
         return (
             <article>
-                <h1>{ post.title }</h1>
-                    <VoteBox 
-                        onIncrementScore= {() => this.handleIncrementScore(post) }
-                        voteScore={ post.voteScore }/>
-                <p>{ post.body }</p>
-                <button onClick={ e => onClickCategory(post.category) }>{ post.category }</button>
+                <VoteBox post={post}/>
+                <h1><Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></h1>
+                <div>Author: { post.author }</div>
+                <div>Kommentare: { this.getCommentSize(post.id) }</div> 
             </article>
         )
     }
 }
 
-export default connect()(Post)
+const mapStateToProps = state => ({
+    comments: state.comments
+})
+
+export default connect(mapStateToProps)(Post)

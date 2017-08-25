@@ -3,6 +3,7 @@ import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories, fetchPostsByCategory } from './actions'
 import Posts from './components/Posts'
+import PostDetail from './components/PostDetail'
 
 class App extends Component {
   componentDidMount() {
@@ -21,18 +22,30 @@ class App extends Component {
         <Route exact path='/' render={() => (
           <Posts />
         )}/>
-        <Route path="/category/:category" render={({match}) => (
+        <Route exact path="/category/:category" render={({match}) => (
           <div>
             <Posts 
               category={match.params.category}
             />
           </div>
         )}/>
+        <Route exact path='/:category/:postId' render={({match}) => (
+          <div>
+            { 
+              match.params.category !== 'category' ? 
+              <PostDetail 
+                category={match.params.category}
+                postId={match.params.postId}
+              />
+              :null
+            }
+          </div>
+        )}/>
 
         <ul>
           { categories.map(category => (
             <li key={ category }>
-              <Link to={'/category/' + category} onClick={e => this.handleClickCategory(category)}>
+              <Link to={`/category/${category}`} onClick={e => this.handleClickCategory(category)}>
                   {category}
               </Link>
             </li>

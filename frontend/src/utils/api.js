@@ -18,6 +18,10 @@ export const fetchPostsByCategory = (category) => {
     return fetch(`${API_URL}/${category}/posts`, { headers })
 }
 
+export const fetchPostById = (postId) => {
+    return fetch(`${API_URL}/posts/${postId}`, { headers})
+}
+
 export const updatePostScore = (post, option) => {
     return fetch(API_URL + '/posts/' + post.id, {
         headers,

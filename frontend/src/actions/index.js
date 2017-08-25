@@ -9,6 +9,9 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const REQUEST_POSTS_BY_CATEGORY = 'REQUEST_POSTS_BY_CATEGORY'
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 
+export const REQUEST_POST_BY_ID = 'REQUEST_POST_BY_ID'
+export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
+
 export const REQUEST_INCREMENT_POST_SCORE = 'REQUEST_INCREMENT_POST_SCORE'
 export const RECEIVE_INCREMENT_POST_SCORE = 'RECEIVE_INCREMENT_POST_SCORE'
 
@@ -77,6 +80,26 @@ export const receivePostsByCategory = (category, posts) => ({
     type: RECEIVE_POSTS_BY_CATEGORY,
     category,
     posts: posts
+})
+
+export const fetchPostById = (postId) => dispatch => {
+    dispatch(requestPostById(postId))
+    return API.fetchPostById(postId)
+        .then(response => response.json())
+        .then(post => {
+            dispatch(receivePostById(post))
+            dispatch(fetchCommentsByPost(post))
+        })
+}
+
+export const requestPostById = (postId) => ({
+    type: REQUEST_POST_BY_ID,
+    postId
+})
+
+export const receivePostById = (post) => ({
+    type: RECEIVE_POST_BY_ID,
+    post
 })
 
 export const incrementPostScore = (post) => dispatch => {

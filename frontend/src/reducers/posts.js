@@ -1,13 +1,15 @@
 import {
     REQUEST_POSTS, RECEIVE_POSTS,
     REQUEST_POSTS_BY_CATEGORY, RECEIVE_POSTS_BY_CATEGORY,
+    REQUEST_POST_BY_ID, RECEIVE_POST_BY_ID,
     REQUEST_INCREMENT_POST_SCORE, RECEIVE_INCREMENT_POST_SCORE,
     REQUEST_DECREMENT_POST_SCORE, RECEIVE_DECREMENT_POST_SCORE
 } from '../actions'
 
 export const posts = (state = {
     isFetching: false,
-    items: []
+    items: [],
+    selectedPost: {}
 }, action) => {
     switch(action.type) {
         case REQUEST_POSTS:
@@ -31,6 +33,17 @@ export const posts = (state = {
                 ...state,
                 isFetching: false,
                 items: action.posts
+            }
+        case REQUEST_POST_BY_ID:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case RECEIVE_POST_BY_ID:
+            return {
+                ...state,
+                isFetching: false,
+                selectedPost: action.post
             }
         case REQUEST_INCREMENT_POST_SCORE:
             return {

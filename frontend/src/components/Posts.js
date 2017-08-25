@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchPosts, fetchPostsByCategory } from '../actions'
-import VoteBox from './VoteBox'
+import Post from '../components/Post'
 
 
 class Posts extends Component {
@@ -22,27 +22,13 @@ class Posts extends Component {
         }
     }
 
-    getCommentSize = (postId) => {
-        const { comments } = this.props
-        if (comments[postId]) {
-            return comments[postId].length
-        }
-        return 0
-    }
-
     render() {
         const { posts } = this.props
         return (
             <ul>
                 { posts.map(post => (
-                    
                     <li key={ post.id }>
-                        <VoteBox 
-                            post={post}
-                        />
-                        <h1>{ post.title }</h1>
-                        <div>Author: { post.author }</div>
-                        <div>Kommentare: { this.getCommentSize(post.id) }</div> 
+                        <Post post={post} />
                     </li>
                 ))}
             </ul>
@@ -52,7 +38,6 @@ class Posts extends Component {
 
 const mapStateToProps = state => ({
     posts: state.posts.items,
-    comments: state.comments
 })
 
 export default connect(mapStateToProps)(Posts)
