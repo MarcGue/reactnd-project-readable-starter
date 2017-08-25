@@ -43,6 +43,9 @@ class App extends Component {
         )}/>
 
         <ul>
+          <li>
+            <Link to='/'>All</Link>
+          </li>
           { categories.map(category => (
             <li key={ category }>
               <Link to={`/category/${category}`} onClick={e => this.handleClickCategory(category)}>
