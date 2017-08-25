@@ -26,25 +26,33 @@ class PostDetail extends Component {
     }
 
     render() {
-        const { post } = this.props
-
-        return (
-            <section>
-                <VoteBox post={post}/>
-                <h1>{ post.title }</h1>
-                <div>Author: { post.author }</div>
-                <ul>
-                    { this.getComments(post.id).map(comment => (
-                        <li key={comment.id}>{comment.body}</li>
-                    ))}
-                </ul>
-            </section>
-        )
+        const { posts, postId } = this.props
+        const post = posts.find(data => data.id === postId)
+        if (post) {
+            return (
+                <div>
+                    <VoteBox post={post}/>
+                    <h1>{ post.title }</h1>
+                    <div>Author: { post.author }</div>
+                    <ul>
+                        { this.getComments(post.id).map(comment => (
+                            <li key={comment.id}>{comment.body}</li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    {`Could not find a Post with the Id: ${postId}`}
+                </div>
+            )
+        }
     }
 }
 
 const mapStateToProps = state => ({
-    post: state.posts.selectedPost,
+    posts: state.posts.items,
     comments: state.comments
 })
 

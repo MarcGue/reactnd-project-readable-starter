@@ -43,7 +43,7 @@ export const posts = (state = {
             return {
                 ...state,
                 isFetching: false,
-                selectedPost: action.post
+                items: [action.post]
             }
         case REQUEST_INCREMENT_POST_SCORE:
             return {
@@ -56,10 +56,7 @@ export const posts = (state = {
                 isFetching: false,
                 items: state.items.map((post) => {
                     if (post.id === action.post.id) {
-                        return {
-                            ...post,
-                            ...post.voteScore++ 
-                        }
+                        return action.post
                     }
                     return post
                 })
@@ -75,10 +72,7 @@ export const posts = (state = {
                 isFetching: false,
                 items: state.items.map((post) => {
                     if (post.id === action.post.id) {
-                        return {
-                            ...post,
-                            ...post.voteScore-- 
-                        }
+                        return action.post
                     }
                     return post
                 })
