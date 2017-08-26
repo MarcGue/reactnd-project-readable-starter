@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { incrementPostScore, decrementPostScore } from '../actions'
 import VoteBox from './VoteBox'
 
 class Post extends Component {
+
+    incrementPostScore = (post) => {
+        const { dispatch } = this.props
+        dispatch(incrementPostScore(post))
+    }
+
+    decrementPostStore = (post) => {
+        const { dispatch } = this.props
+        dispatch(decrementPostScore(post))
+    }
 
     getCommentSize = (postId) => {
         const { comments } = this.props
@@ -20,15 +31,18 @@ class Post extends Component {
             <div className='container'>
                 <div className='row'>
                     <div className='col-3'>
-                        <VoteBox post={post} />
+                        <VoteBox 
+                            data={post} 
+                            onIncrementScore={this.incrementPostScore}
+                            onDecrementStore={this.decrementPostStore}
+                        />
                     </div>
                     <div className='col-9'>
-                        <h3><Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></h3>
+                        <h3 className='mb-4'><Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></h3>
                         <div>Author: { post.author }</div>
                         <div>Kommentare: { this.getCommentSize(post.id) }</div> 
                     </div>
                 </div>
-                <hr />
             </div>
         )
     }

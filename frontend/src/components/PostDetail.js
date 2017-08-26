@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchPostById } from '../actions'
-import VoteBox from './VoteBox'
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import Post from './Post'
 
 class PostDetail extends Component {
     
@@ -31,14 +32,32 @@ class PostDetail extends Component {
         if (post) {
             return (
                 <div>
-                    <VoteBox post={post}/>
-                    <h1>{ post.title }</h1>
-                    <div>Author: { post.author }</div>
-                    <ul>
-                        { this.getComments(post.id).map(comment => (
-                            <li key={comment.id}>{comment.body}</li>
-                        ))}
-                    </ul>
+                    <Post post={post}/>
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-12'>
+                                <ul>
+                                    { this.getComments(post.id).map(comment => (
+                                        <li key={comment.id}>{comment.body}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-12'>
+                                <Form>
+                                    <FormGroup>
+                                        <Label for="comment">Add a comment:</Label>
+                                        <Input type="textarea" name="text" id="comment" />
+                                    </FormGroup>
+                                    <Button>Submit</Button>
+                                </Form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )
         } else {

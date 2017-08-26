@@ -29,6 +29,7 @@ class Posts extends Component {
                 { posts.map(post => (
                     <article key={ post.id }>
                         <Post post={post} />
+                        <hr />
                     </article>
                 ))}
             </section>
