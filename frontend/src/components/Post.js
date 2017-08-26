@@ -17,11 +17,13 @@ class Post extends Component {
         const { post } = this.props
 
         return (
-            <article>
+            <article className='container'>
                 <VoteBox post={post}/>
-                <h1><Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></h1>
-                <div>Author: { post.author }</div>
-                <div>Kommentare: { this.getCommentSize(post.id) }</div> 
+                <div>
+                    <h1><Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></h1>
+                    <div>Author: { post.author }</div>
+                    <div>Kommentare: { this.getCommentSize(post.id) }</div> 
+                </div>
             </article>
         )
     }

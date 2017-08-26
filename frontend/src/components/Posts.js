@@ -25,7 +25,7 @@ class Posts extends Component {
     render() {
         const { posts } = this.props
         return (
-            <ul>
+            <ul className='posts-lists'>
                 { posts.map(post => (
                     <li key={ post.id }>
                         <Post post={post} />
