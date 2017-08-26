@@ -13,7 +13,8 @@ class App extends Component {
   }
 
   handleClickCategory = category => {
-    this.props.dispatch(fetchPostsByCategory(category))
+    const { dispatch } = this.props
+    dispatch(fetchPostsByCategory(category))
   }
 
   render() {
@@ -27,19 +28,19 @@ class App extends Component {
         
         <Container className='mt-5'>
           <Row>
-            <Col sm='12' lg='3' className='mb-5'>
+            <Col xs='12' sm='12' lg='3' className='mb-5'>
               <aside>
                 <ListGroup>
-                  <ListGroupItem tag='a' href='/'>All</ListGroupItem>
+                  <ListGroupItem tag='a' href='/' action>All</ListGroupItem>
                   { categories.map(category => (
-                    <ListGroupItem key={ category } tag='a' href={`/category/${category}`} onClick={e => this.handleClickCategory(category)}>
+                    <ListGroupItem key={ category } tag='a' href={`/category/${category}`} action onClick={e => this.handleClickCategory(category)}>
                           {category}
                     </ListGroupItem>
                   ))}
                 </ListGroup>
               </aside>
             </Col>
-            <Col sm='12' lg='9' className='mb-5'>
+            <Col xs='12' sm='12' lg='9' className='mb-5'>
               <main>
                 <Route exact path='/' render={() => (
                   <Posts />
@@ -63,7 +64,6 @@ class App extends Component {
             </Col>
           </Row>
         </Container>
-
       </div>
     );
   }

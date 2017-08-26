@@ -11,12 +11,12 @@ class Comment extends Component {
                 <CardHeader>Author: {comment.author}</CardHeader>
                 <CardBlock>
                     <Row>
-                    <Col lg='1'>
-                        <VoteBox data={comment}/>
-                    </Col>
-                    <Col lg='11'>
-                        <CardText>{comment.body}</CardText>
-                    </Col>
+                        <Col xs='3' sm='2' lg='1'>
+                            <VoteBox data={comment}/>
+                        </Col>
+                        <Col xs='9' sm='10' lg='11'>
+                            <CardText>{comment.body}</CardText>
+                        </Col>
                     </Row>
                 </CardBlock>
             </Card>

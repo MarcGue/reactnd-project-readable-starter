@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchPostById } from '../actions'
-import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Post from './Post'
-import Comment from './Comment'
 
 class PostDetail extends Component {
     
@@ -27,19 +26,19 @@ class PostDetail extends Component {
                 <div>
                     <Post post={post} />
                     <hr />
-                    <div className='container'>
-                        <div className='row'>
-                            <div className='col-12'>
+                    <Container>
+                        <Row>
+                            <Col lg='12'>
                                 <Form>
                                     <FormGroup>
                                         <Label for="comment">Add a comment:</Label>
-                                        <Input type="textarea" name="text" id="comment" />
+                                        <Input type="textarea" name="text" id="comment" rows="5"/>
                                     </FormGroup>
                                     <Button>Submit</Button>
                                 </Form>
-                            </div>
-                        </div>
-                    </div>
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
             )
         } else {

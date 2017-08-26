@@ -30,17 +30,17 @@ class Post extends Component {
         const { post, showComments } = this.props
 
         return (
-            <div className='container'>
+            <Container className='post py-3'>
                 <Row>
-                    <Col lg='12'>
-                        <h3 className=''>
+                    <Col sm='12' lg='12'>
+                        <h3>
                             <Row>
-                                <Col lg='9'>
+                                <Col xs='7' sm='8' lg='9'>
                                     <Link to={`/${post.category}/${post.id}`}>{ post.title }</Link>
                                 </Col>
-                                <Col lg='3'>
-                                    <Button>Edit</Button>
-                                    <Button className='ml-2'>Delete</Button>
+                                <Col xs='5' sm='4' lg='3' className='text-right'>
+                                    <Button>E</Button>
+                                    <Button className='ml-2'>D</Button>
                                 </Col>
                             </Row>
                         </h3>
@@ -58,14 +58,14 @@ class Post extends Component {
                     </Col>
                 </Row>
                 <Row className='mt-4'>
-                    <Col lg='1'>
+                    <Col xs='3' lg='1'>
                         <VoteBox 
                             data={post} 
                             onIncrementScore={this.incrementPostScore}
                             onDecrementStore={this.decrementPostStore}
                         />
                     </Col>
-                    <Col lg='11'>
+                    <Col xs='9' lg='11'>
                         <p className='pt-2'>
                             {post.body}
                         </p>
@@ -80,7 +80,7 @@ class Post extends Component {
                     </Col>
                 </Row>
                 : null}
-            </div>
+            </Container>
         )
     }
 }
