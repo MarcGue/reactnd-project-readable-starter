@@ -27,9 +27,8 @@ class Posts extends Component {
         return (
             <section>
                 { posts.map(post => (
-                    <article key={ post.id }>
+                    <article key={ post.id } className='mb-5'>
                         <Post post={post} />
-                        <hr />
                     </article>
                 ))}
             </section>

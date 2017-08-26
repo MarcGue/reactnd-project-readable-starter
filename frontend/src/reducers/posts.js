@@ -9,40 +9,46 @@ import {
 export const posts = (state = {
     isFetching: false,
     items: [],
-    selectedPost: {}
+    showComments: false
 }, action) => {
     switch(action.type) {
         case REQUEST_POSTS:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                showComments: false
             }
         case RECEIVE_POSTS:
             return {
                 ...state,
                 isFetching: false,
+                showComments: false,
                 items: action.posts
             }
         case REQUEST_POSTS_BY_CATEGORY:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                showComments: false,
             }
         case RECEIVE_POSTS_BY_CATEGORY:
             return {
                 ...state,
                 isFetching: false,
+                showComments: false,
                 items: action.posts
             }
         case REQUEST_POST_BY_ID:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                showComments: true
             }
         case RECEIVE_POST_BY_ID:
             return {
                 ...state,
                 isFetching: false,
+                showComments: true,
                 items: [action.post]
             }
         case REQUEST_INCREMENT_POST_SCORE:

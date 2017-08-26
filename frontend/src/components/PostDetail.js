@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchPostById } from '../actions'
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Post from './Post'
+import Comment from './Comment'
 
 class PostDetail extends Component {
     
@@ -18,32 +19,13 @@ class PostDetail extends Component {
         }
     }
 
-    getComments = (postId) => {
-        const { comments } = this.props
-        if (comments[postId]) {
-            return comments[postId]
-        }
-        return []
-    }
-
     render() {
         const { posts, postId } = this.props
         const post = posts.find(data => data.id === postId)
         if (post) {
             return (
                 <div>
-                    <Post post={post}/>
-                    <div className='container'>
-                        <div className='row'>
-                            <div className='col-12'>
-                                <ul>
-                                    { this.getComments(post.id).map(comment => (
-                                        <li key={comment.id}>{comment.body}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <Post post={post} />
                     <hr />
                     <div className='container'>
                         <div className='row'>
