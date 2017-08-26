@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/lib/ti'
 import './VoteBox.css'
 
@@ -16,4 +15,4 @@ class VoteBox extends Component {
     }
 }
 
-export default connect()(VoteBox)
+export default VoteBox
