@@ -20,12 +20,15 @@ class App extends Component {
     const { categories } = this.props
     return (
       <div>
+        
         <Navbar color='faded' light toggleable>
           <NavbarBrand href='/'>Readable</NavbarBrand>
         </Navbar>
-        <div className='container-fluid'>
+        
+        <div className='container mt-5'>
           <div className='row'>
-            <aside className='col-3'>
+            
+            <aside className='col-sm-12 col-lg-3 mb-5'>
               <ListGroup>
                 <ListGroupItem tag='a' href='/'>All</ListGroupItem>
                 { categories.map(category => (
@@ -36,16 +39,12 @@ class App extends Component {
               </ListGroup>
             </aside>
 
-            <main className='col-9'>
+            <main className='col-sm-12 col-lg-9 mb-5'>
               <Route exact path='/' render={() => (
                 <Posts />
               )}/>
               <Route exact path='/category/:category' render={({match}) => (
-                <div>
-                  <Posts 
-                    category={match.params.category}
-                  />
-                </div>
+                  <Posts category={match.params.category} />
               )}/>
               <Route exact path='/:category/:postId' render={({match}) => (
                 <div>
@@ -61,9 +60,9 @@ class App extends Component {
               )}/>
             </main>
 
-            
           </div>
         </div>
+
       </div>
     );
   }

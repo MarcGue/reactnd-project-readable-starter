@@ -25,13 +25,13 @@ class Posts extends Component {
     render() {
         const { posts } = this.props
         return (
-            <ul className='posts-lists'>
+            <section>
                 { posts.map(post => (
-                    <li key={ post.id }>
+                    <article key={ post.id }>
                         <Post post={post} />
-                    </li>
+                    </article>
                 ))}
-            </ul>
+            </section>
         )
     }
 }
