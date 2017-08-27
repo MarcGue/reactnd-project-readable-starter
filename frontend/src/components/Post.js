@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { incrementPostScore, decrementPostScore } from '../actions'
 import { Container, Row, Col, Button } from 'reactstrap';
+import { MdCreate } from 'react-icons/lib/md'
+import { FaTrash } from 'react-icons/lib/fa'
 import VoteBox from './VoteBox'
 import Comment from './Comment'
 
@@ -13,7 +15,7 @@ class Post extends Component {
         dispatch(incrementPostScore(post))
     }
 
-    decrementPostStore = (post) => {
+    decrementPostScore = (post) => {
         const { dispatch } = this.props
         dispatch(decrementPostScore(post))
     }
@@ -35,12 +37,16 @@ class Post extends Component {
                     <Col sm='12' lg='12'>
                         <h3>
                             <Row>
-                                <Col xs='7' sm='8' lg='9'>
+                                <Col xs='8' sm='8' lg='9'>
                                     <Link to={`/${post.category}/${post.id}`}>{ post.title }</Link>
                                 </Col>
-                                <Col xs='5' sm='4' lg='3' className='text-right'>
-                                    <Button>E</Button>
-                                    <Button className='ml-2'>D</Button>
+                                <Col xs='4' sm='4' lg='3' className='text-right'>
+                                    <Button size='sm'>
+                                        <MdCreate/>
+                                    </Button>
+                                    <Button size='sm' className='ml-2'>
+                                        <FaTrash/>
+                                    </Button>
                                 </Col>
                             </Row>
                         </h3>
@@ -62,7 +68,7 @@ class Post extends Component {
                         <VoteBox 
                             data={post} 
                             onIncrementScore={this.incrementPostScore}
-                            onDecrementStore={this.decrementPostStore}
+                            onDecrementScore={this.decrementPostScore}
                         />
                     </Col>
                     <Col xs='9' lg='11'>

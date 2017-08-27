@@ -35,3 +35,13 @@ export const updatePostScore = (post, option) => {
 export const fetchCommentyByPost = (post) => {
     return fetch(`${API_URL}/posts/${post.id}/comments`, { headers })
 }
+
+export const updateCommentScore = (comment, option) => {
+    return fetch(API_URL + '/comments/' + comment.id, {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({
+            option: option
+	    })
+    })
+}

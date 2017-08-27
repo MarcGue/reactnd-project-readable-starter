@@ -4,12 +4,12 @@ import './VoteBox.css'
 
 class VoteBox extends Component {
     render() {
-        const { data, onIncrementScore, onDecrementStore } = this.props
+        const { data, onIncrementScore, onDecrementScore } = this.props
         return (
             <div className="voteBox">
                 <TiArrowSortedUp onClick={e => onIncrementScore(data)} className="vote" />
                 <div>{ data.voteScore }</div>
-                <TiArrowSortedDown onClick={e => onDecrementStore(data)} className="vote" />
+                <TiArrowSortedDown onClick={e => onDecrementScore(data)} className="vote" />
             </div>
         )
     }
