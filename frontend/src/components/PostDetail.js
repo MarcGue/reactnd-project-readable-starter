@@ -23,14 +23,14 @@ class PostDetail extends Component {
         const { dispatch } = this.props
         
         event.preventDefault()
-        const owner = event.target.author.value
+        const author = event.target.author.value
         const body = event.target.comment.value
         
         const comment = {
             id: v1(),
             timestamp: new Date().getTime(),
             body: body,
-            owner: owner,
+            author: author,
             parentId: post.id
         }
     

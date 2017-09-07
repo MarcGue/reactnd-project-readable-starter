@@ -50,6 +50,6 @@ export const addComment = (comment) => {
     return fetch(`${API_URL}/comments`, { 
         headers,
         method: 'POST',
-        body: comment
+        body: JSON.stringify(comment)
     })
 }
