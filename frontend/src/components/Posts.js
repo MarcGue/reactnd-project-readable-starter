@@ -37,7 +37,7 @@ class Posts extends Component {
 }
 
 const mapStateToProps = state => ({
-    posts: state.posts.items,
+    posts: state.posts.items.filter(post => post.deleted === false),
 })
 
 export default connect(mapStateToProps)(Posts)

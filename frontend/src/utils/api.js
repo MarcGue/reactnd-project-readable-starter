@@ -32,6 +32,13 @@ export const updatePostScore = (post, option) => {
     })
 }
 
+export const deletePost = (post) => {
+    return fetch(`${API_URL}/posts/${post.id}`, {
+        headers,
+        method: 'DELETE'
+    })
+}
+
 export const fetchCommentyByPost = (post) => {
     return fetch(`${API_URL}/posts/${post.id}/comments`, { headers })
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { incrementPostScore, decrementPostScore } from '../actions'
+import { incrementPostScore, decrementPostScore, deletePost } from '../actions'
 import { Container, Row, Col, Button } from 'reactstrap';
 import { MdCreate } from 'react-icons/lib/md'
 import { FaTrash } from 'react-icons/lib/fa'
@@ -28,9 +28,16 @@ class Post extends Component {
         return []
     }
 
+    handleDelete = (e, post) => {
+        const { dispatch, showComments, history } = this.props
+        dispatch(deletePost(post))
+        if (showComments) {
+            history.push(`/${post.category}`);
+        }
+    }
+
     render() {
         const { post, showComments } = this.props
-
         return (
             <Container className='post py-3'>
                 <Row>
@@ -44,8 +51,8 @@ class Post extends Component {
                                     <Button size='sm'>
                                         <MdCreate/>
                                     </Button>
-                                    <Button size='sm' className='ml-2'>
-                                        <FaTrash/>
+                                    <Button size='sm' className='ml-2' onClick={e => this.handleDelete(e, post)}>
+                                        <FaTrash />
                                     </Button>
                                 </Col>
                             </Row>
@@ -96,4 +103,4 @@ const mapStateToProps = state => ({
     comments: state.comments
 })
 
-export default connect(mapStateToProps)(Post)
+export default withRouter(connect(mapStateToProps)(Post))

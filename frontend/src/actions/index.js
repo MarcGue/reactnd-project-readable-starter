@@ -12,6 +12,9 @@ export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const REQUEST_POST_BY_ID = 'REQUEST_POST_BY_ID'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 
+export const REQUEST_DELETE_POST = 'REQUEST_DELETE_POST'
+export const RECEIVE_DELETE_POST = 'RECEIVE_DELETE_POST'
+
 export const REQUEST_INCREMENT_POST_SCORE = 'REQUEST_INCREMENT_POST_SCORE'
 export const RECEIVE_INCREMENT_POST_SCORE = 'RECEIVE_INCREMENT_POST_SCORE'
 
@@ -145,6 +148,22 @@ export const receiveDecrementPostScore = (post) => ({
     post
 })
 
+export const deletePost = (post) => dispatch => {
+    dispatch(requestDeletePost(post))
+    return API.deletePost(post)
+        .then(response => dispatch(receiveDeletePost(post)))
+}
+
+export const requestDeletePost = post => ({
+    type: REQUEST_DELETE_POST,
+    post
+})
+
+export const receiveDeletePost = post => ({
+    type: RECEIVE_DELETE_POST,
+    post
+})
+
 export const fetchCommentsByPost = (post) => dispatch => {
     dispatch(requestCommentsByPost(post))
     return API.fetchCommentyByPost(post)
@@ -218,3 +237,4 @@ export const receiveAddComment = (comment) => ({
     type: RECEIVE_ADD_COMMENT,
     comment
 })
+

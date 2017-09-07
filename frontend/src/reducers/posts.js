@@ -3,7 +3,8 @@ import {
     REQUEST_POSTS_BY_CATEGORY, RECEIVE_POSTS_BY_CATEGORY,
     REQUEST_POST_BY_ID, RECEIVE_POST_BY_ID,
     REQUEST_INCREMENT_POST_SCORE, RECEIVE_INCREMENT_POST_SCORE,
-    REQUEST_DECREMENT_POST_SCORE, RECEIVE_DECREMENT_POST_SCORE
+    REQUEST_DECREMENT_POST_SCORE, RECEIVE_DECREMENT_POST_SCORE,
+    REQUEST_DELETE_POST, RECEIVE_DELETE_POST
 } from '../actions'
 
 export const posts = (state = {
@@ -23,7 +24,7 @@ export const posts = (state = {
                 ...state,
                 isFetching: false,
                 showComments: false,
-                items: action.posts
+                items: action.posts.filter(post => post.deleted === false)
             }
         case REQUEST_POSTS_BY_CATEGORY:
             return {
@@ -36,7 +37,7 @@ export const posts = (state = {
                 ...state,
                 isFetching: false,
                 showComments: false,
-                items: action.posts
+                items: action.posts.filter(post => post.deleted === false)
             }
         case REQUEST_POST_BY_ID:
             return {
@@ -79,6 +80,23 @@ export const posts = (state = {
                 items: state.items.map((post) => {
                     if (post.id === action.post.id) {
                         return action.post
+                    }
+                    return post
+                })
+            }
+        case REQUEST_DELETE_POST:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case RECEIVE_DELETE_POST:
+            return {
+                ...state,
+                isFetching: false,
+                items: state.items.map((post) => {
+                    if (post.id === action.post.id) {
+                        post.deleted = true
+                        return post
                     }
                     return post
                 })
