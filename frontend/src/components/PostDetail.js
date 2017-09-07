@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPostById } from '../actions'
+import { fetchPostById, addComment } from '../actions'
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Post from './Post'
+import { v1 } from 'uuid'
 
 class PostDetail extends Component {
     
@@ -18,6 +19,24 @@ class PostDetail extends Component {
         }
     }
 
+    handleSubmit = (event, post) => {
+        const { dispatch } = this.props
+        
+        event.preventDefault()
+        const owner = event.target.author.value
+        const body = event.target.comment.value
+        
+        const comment = {
+            id: v1(),
+            timestamp: new Date().getTime(),
+            body: body,
+            owner: owner,
+            parentId: post.id
+        }
+    
+        dispatch(addComment(comment))
+    }
+
     render() {
         const { posts, postId } = this.props
         const post = posts.find(data => data.id === postId)
@@ -29,10 +48,14 @@ class PostDetail extends Component {
                     <Container>
                         <Row>
                             <Col lg='12'>
-                                <Form>
+                                <Form onSubmit={e => this.handleSubmit(e, post)}>
                                     <FormGroup>
-                                        <Label for="comment">Add a comment:</Label>
-                                        <Input type="textarea" name="text" id="comment" rows="5"/>
+                                        <Label for='author'>Author:</Label>
+                                        <Input type='text' name='author' id='author' required/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for='comment'>Comment:</Label>
+                                        <Input type='textarea' name='comment' id='comment' rows='5' required/>
                                     </FormGroup>
                                     <Button>Submit</Button>
                                 </Form>

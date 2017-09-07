@@ -27,6 +27,9 @@ export const RECEIVE_INCREMENT_COMMENT_SCORE = 'RECEIVE_INCREMENT_COMMENT_SCORE'
 export const REQUEST_DECREMENT_COMMENT_SCORE = 'REQUEST_DECREMENT_COMMENT_SCORE'
 export const RECEIVE_DECREMENT_COMMENT_SCORE = 'RECEIVE_DECREMENT_COMMENT_SCORE'
 
+export const REQUEST_ADD_COMMENT = 'REQUEST_ADD_COMMENT'
+export const RECEIVE_ADD_COMMENT = 'RECEIVE_ADD_COMMENT'
+
 export const fetchCategories = () => dispatch => {
     dispatch(requestCategories())
     return API.fetchCategories()
@@ -191,5 +194,27 @@ export const requestDecrementCommentScore = (comment) => ({
 
 export const receiveDecrementCommentScore = (comment) => ({
     type: RECEIVE_DECREMENT_COMMENT_SCORE,
+    comment
+})
+
+export const addComment = (comment) => dispatch => {
+    dispatch(requestAddComment(comment))
+    return API.addComment(comment)
+        .then(response => response.json())
+        .then(data => dispatch(receiveAddComment({
+            ...comment, 
+            voteScore: data.voteScore,
+            deleted: data.deleted,
+            parentDeleted: data.parentDeleted
+        })))
+}
+
+export const requestAddComment = (comment) => ({
+    type: REQUEST_ADD_COMMENT,
+    comment
+})
+
+export const receiveAddComment = (comment) => ({
+    type: RECEIVE_ADD_COMMENT,
     comment
 })

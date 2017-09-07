@@ -4,7 +4,9 @@ import {
     REQUEST_INCREMENT_COMMENT_SCORE,
     RECEIVE_INCREMENT_COMMENT_SCORE,
     REQUEST_DECREMENT_COMMENT_SCORE,
-    RECEIVE_DECREMENT_COMMENT_SCORE
+    RECEIVE_DECREMENT_COMMENT_SCORE,
+    REQUEST_ADD_COMMENT,
+    RECEIVE_ADD_COMMENT
 } from '../actions'
 
 export const comments = (state = {
@@ -54,7 +56,19 @@ export const comments = (state = {
                     return comment
                 })
             }
+        case REQUEST_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case RECEIVE_ADD_COMMENT:
+            return {
+                ...state,
+                isFetching: false,
+                [action.comment.parentId]: [...state[action.comment.parentId], action.comment]
+            }
         default:
             return state
+
     }
 }
