@@ -12,6 +12,12 @@ export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const REQUEST_POST_BY_ID = 'REQUEST_POST_BY_ID'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 
+export const REQUEST_ADD_POST = 'REQUEST_ADD_POST'
+export const RECEIVE_ADD_POST = 'RECEIVE_ADD_POST'
+
+export const REQUEST_EDIT_POST = 'REQUEST_EDIT_POST'
+export const RECEIVE_EDIT_POST = 'RECEIVE_EDIT_POST'
+
 export const REQUEST_DELETE_POST = 'REQUEST_DELETE_POST'
 export const RECEIVE_DELETE_POST = 'RECEIVE_DELETE_POST'
 
@@ -59,19 +65,18 @@ export const fetchPosts = () => dispatch => {
                 dispatch(fetchCommentsByPost(post))
             }
         })
-        
 }
 
 export const requestPosts = () => ({
     type: REQUEST_POSTS
 })
 
-export const receivePosts = (json) => ({
+export const receivePosts = json => ({
     type: RECEIVE_POSTS,
     posts: json
 })
 
-export const fetchPostsByCategory = (category) => dispatch => {
+export const fetchPostsByCategory = category => dispatch => {
     dispatch(requestPostsByCategory(category))
     return API.fetchPostsByCategory(category)
         .then(response => response.json())
@@ -83,7 +88,7 @@ export const fetchPostsByCategory = (category) => dispatch => {
         })
 }
 
-export const requestPostsByCategory = (category) => ({
+export const requestPostsByCategory = category => ({
     type: REQUEST_POSTS_BY_CATEGORY,
     category
 })
@@ -94,7 +99,7 @@ export const receivePostsByCategory = (category, posts) => ({
     posts: posts
 })
 
-export const fetchPostById = (postId) => dispatch => {
+export const fetchPostById = postId => dispatch => {
     dispatch(requestPostById(postId))
     return API.fetchPostById(postId)
         .then(response => response.json())
@@ -104,51 +109,68 @@ export const fetchPostById = (postId) => dispatch => {
         })
 }
 
-export const requestPostById = (postId) => ({
+export const requestPostById = postId => ({
     type: REQUEST_POST_BY_ID,
     postId
 })
 
-export const receivePostById = (post) => ({
+export const receivePostById = post => ({
     type: RECEIVE_POST_BY_ID,
     post
 })
 
-export const incrementPostScore = (post) => dispatch => {
+export const incrementPostScore = post => dispatch => {
     dispatch(requestIncrementPostScore(post))
     return API.updatePostScore(post, 'upVote')
         .then(response => response.json())
         .then(data => dispatch(receiveIncrementPostScore(data)))
 }
 
-export const requestIncrementPostScore = (post) => ({
+export const requestIncrementPostScore = post => ({
     type: REQUEST_INCREMENT_POST_SCORE,
     post
 })
 
-export const receiveIncrementPostScore = (post) => ({
+export const receiveIncrementPostScore = post => ({
     type: RECEIVE_INCREMENT_POST_SCORE,
     post
 })
 
-export const decrementPostScore = (post) => dispatch => {
+export const decrementPostScore = post => dispatch => {
     dispatch(requestDecrementPostScore(post))
     return API.updatePostScore(post, 'downVote')
         .then(response => response.json())
         .then(data => dispatch(receiveDecrementPostScore(data)))
 }
 
-export const requestDecrementPostScore = (post) => ({
+export const requestDecrementPostScore = post => ({
     type: REQUEST_DECREMENT_POST_SCORE,
     post
 })
 
-export const receiveDecrementPostScore = (post) => ({
+export const receiveDecrementPostScore = post => ({
     type: RECEIVE_DECREMENT_POST_SCORE,
     post
 })
 
-export const deletePost = (post) => dispatch => {
+export const addPost = post => dispatch => {
+    dispatch(requestAddPost(post))
+    return API.addPost(post)
+        .then(response => response.json())
+        .then(data => dispatch(receiveAddPost(data)))
+}
+
+export const requestAddPost = post => ({
+    type: REQUEST_ADD_POST,
+    post
+})
+
+export const receiveAddPost = post => ({
+    type: RECEIVE_ADD_POST,
+    post
+})
+
+export const deletePost = post => dispatch => {
     dispatch(requestDeletePost(post))
     return API.deletePost(post)
         .then(response => dispatch(receiveDeletePost(post)))
@@ -164,14 +186,14 @@ export const receiveDeletePost = post => ({
     post
 })
 
-export const fetchCommentsByPost = (post) => dispatch => {
+export const fetchCommentsByPost = post => dispatch => {
     dispatch(requestCommentsByPost(post))
     return API.fetchCommentyByPost(post)
         .then(response => response.json())
         .then(data => dispatch(receiveCommentsByPost(post, data)))
 }
 
-export const requestCommentsByPost = (post) => ({
+export const requestCommentsByPost = post => ({
     type: REQUEST_COMMENTS_BY_POST,
     post
 })
@@ -182,19 +204,19 @@ export const receiveCommentsByPost = (post, comments) => ({
     comments
 })
 
-export const incrementCommentScore = (comment) => dispatch => {
+export const incrementCommentScore = comment => dispatch => {
     dispatch(requestIncrementCommentScore(comment))
     return API.updateCommentScore(comment, 'upVote')
         .then(response => response.json())
         .then(data => dispatch(receiveIncrementCommentScore(data)))
 }
 
-export const requestIncrementCommentScore = (comment) => ({
+export const requestIncrementCommentScore = comment => ({
     type: REQUEST_INCREMENT_COMMENT_SCORE,
     comment
 })
 
-export const receiveIncrementCommentScore = (comment) => ({
+export const receiveIncrementCommentScore = comment => ({
     type: RECEIVE_INCREMENT_COMMENT_SCORE,
     comment
 })

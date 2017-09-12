@@ -14,11 +14,11 @@ export const fetchPosts = () => {
     return fetch(`${API_URL}/posts`, { headers })
 }
 
-export const fetchPostsByCategory = (category) => {
+export const fetchPostsByCategory = category => {
     return fetch(`${API_URL}/${category}/posts`, { headers })
 }
 
-export const fetchPostById = (postId) => {
+export const fetchPostById = postId => {
     return fetch(`${API_URL}/posts/${postId}`, { headers})
 }
 
@@ -32,14 +32,22 @@ export const updatePostScore = (post, option) => {
     })
 }
 
-export const deletePost = (post) => {
+export const addPost = post => {
+    return fetch(`${API_URL}/posts`, {
+        headers,
+        method: 'POST',
+        body: JSON.stringify(post)
+    })
+}
+
+export const deletePost = post => {
     return fetch(`${API_URL}/posts/${post.id}`, {
         headers,
         method: 'DELETE'
     })
 }
 
-export const fetchCommentyByPost = (post) => {
+export const fetchCommentyByPost = post => {
     return fetch(`${API_URL}/posts/${post.id}/comments`, { headers })
 }
 
@@ -53,7 +61,7 @@ export const updateCommentScore = (comment, option) => {
     })
 }
 
-export const addComment = (comment) => {
+export const addComment = comment => {
     return fetch(`${API_URL}/comments`, { 
         headers,
         method: 'POST',
