@@ -170,6 +170,23 @@ export const receiveAddPost = post => ({
     post
 })
 
+export const editPost = post => dispatch => {
+    dispatch(requestEditPost)
+    return API.editPost(post)
+        .then(response => response.json())
+        .then(data => dispatch(receiveEditPost(post)))
+}
+
+export const requestEditPost = post => ({
+    type: REQUEST_EDIT_POST,
+    post
+})
+
+export const receiveEditPost = post => ({
+    type: RECEIVE_EDIT_POST,
+    post
+})
+
 export const deletePost = post => dispatch => {
     dispatch(requestDeletePost(post))
     return API.deletePost(post)

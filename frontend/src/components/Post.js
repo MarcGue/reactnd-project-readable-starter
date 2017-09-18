@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { incrementPostScore, decrementPostScore, deletePost } from '../actions'
+import { incrementPostScore, decrementPostScore, editPost, deletePost } from '../actions'
 import { Container, Row, Col, Button } from 'reactstrap';
 import { MdCreate } from 'react-icons/lib/md'
 import { FaTrash } from 'react-icons/lib/fa'
@@ -28,6 +28,11 @@ class Post extends Component {
         return []
     }
 
+    handleEdit = (e, post) => {
+        const { history } = this.props
+        history.push(`/edit/${post.id}`)
+    }
+
     handleDelete = (e, post) => {
         const { dispatch, showComments, history } = this.props
         dispatch(deletePost(post))
@@ -47,7 +52,7 @@ class Post extends Component {
                                 <Col xs='8' sm='8' lg='9'>
                                     <Link to={`/${post.category}/${post.id}`}>{ post.title }</Link>
                                 </Col>
-                                <Col xs='4' sm='4' lg='3' className='text-right'>
+                                <Col xs='4' sm='4' lg='3' className='text-right' onClick={e => this.handleEdit(e, post)}>
                                     <Button size='sm'>
                                         <MdCreate/>
                                     </Button>

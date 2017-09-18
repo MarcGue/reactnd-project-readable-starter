@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addPost } from '../actions'
+import { addPost, fetchPostById } from '../actions'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { v1 } from 'uuid'
 

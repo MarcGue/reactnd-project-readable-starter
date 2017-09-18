@@ -34,7 +34,7 @@ class App extends Component {
                 <ListGroup>
                   <ListGroupItem tag='a' href='/' action>All</ListGroupItem>
                   { categories.map(category => (
-                    <ListGroupItem key={ category } tag='a' href={`/category/${category}`} action onClick={e => this.handleClickCategory(category)}>
+                    <ListGroupItem key={ category } tag='a' href={`/${category}`} action onClick={e => this.handleClickCategory(category)}>
                           {category}
                     </ListGroupItem>
                   ))}
@@ -45,10 +45,10 @@ class App extends Component {
               <main>
                 <Switch>
                   <Route exact path='/' component={Posts}/>
-                  <Route exact path='/category/:category' render={({match}) => (
+                  <Route exact path='/:category' render={({match}) => (
                       <Posts category={match.params.category} />
                   )}/>
-                  <Route exact path='/:category/:postId' render={({match}) => (
+                  {/* <Route exact path='/:category/:postId' render={({match}) => (
                     <div>
                       { 
                         match.params.category !== 'category' ? 
@@ -59,9 +59,10 @@ class App extends Component {
                         :null
                       }
                     </div>
-                  )}/>
-                  <Route exact path='/add' component={PostForm}/>
-                  <Route exact path='/edit/:postId' component={PostForm}/>
+                  )}/> */}
+                  <Route exact path='/:category/:postId' component={PostDetail}/>
+                  <Route exact path='/posts/add' component={PostForm}/>
+                  <Route exact path='/posts/edit/:postId' component={PostForm}/>
                 </Switch>
               </main>
             </Col>

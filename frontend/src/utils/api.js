@@ -40,6 +40,17 @@ export const addPost = post => {
     })
 }
 
+export const editPost = post => {
+    return fetch(`${API_URL}/${post.id}`, {
+        headers,
+        method: 'PUT',
+        body: JSON.stringify({
+            title: post.title,
+            body: post.body
+        })
+    })
+}
+
 export const deletePost = post => {
     return fetch(`${API_URL}/posts/${post.id}`, {
         headers,
