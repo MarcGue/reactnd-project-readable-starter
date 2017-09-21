@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { incrementPostScore, decrementPostScore, editPost, deletePost } from '../actions'
+import { fetchPostById, incrementPostScore, decrementPostScore, editPost, deletePost } from '../actions'
 import { Container, Row, Col, Button } from 'reactstrap';
 import { MdCreate } from 'react-icons/lib/md'
 import { FaTrash } from 'react-icons/lib/fa'
@@ -30,7 +30,7 @@ class Post extends Component {
 
     handleEdit = (e, post) => {
         const { history } = this.props
-        history.push(`/edit/${post.id}`)
+        history.push(`/${post.category}/${post.id}/edit`)
     }
 
     handleDelete = (e, post) => {
@@ -43,6 +43,7 @@ class Post extends Component {
 
     render() {
         const { post, showComments } = this.props
+        
         return (
             <Container className='post py-3'>
                 <Row>
@@ -52,8 +53,8 @@ class Post extends Component {
                                 <Col xs='8' sm='8' lg='9'>
                                     <Link to={`/${post.category}/${post.id}`}>{ post.title }</Link>
                                 </Col>
-                                <Col xs='4' sm='4' lg='3' className='text-right' onClick={e => this.handleEdit(e, post)}>
-                                    <Button size='sm'>
+                                <Col xs='4' sm='4' lg='3' className='text-right'>
+                                    <Button size='sm' onClick={e => this.handleEdit(e, post)}>
                                         <MdCreate/>
                                     </Button>
                                     <Button size='sm' className='ml-2' onClick={e => this.handleDelete(e, post)}>
@@ -104,6 +105,7 @@ class Post extends Component {
 }
 
 const mapStateToProps = state => ({
+    posts: state.posts.items,
     showComments: state.posts.showComments,
     comments: state.comments
 })

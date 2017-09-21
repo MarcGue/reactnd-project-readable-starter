@@ -8,11 +8,11 @@ import { v1 } from 'uuid'
 class PostDetail extends Component {
     
     componentDidMount() {
-        const { dispatch, postId } = this.props
-        dispatch(fetchPostById(postId))
+        const { dispatch, match } = this.props
+        dispatch(fetchPostById(match.params.postId))
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps = nextProps => {
         const { dispatch, postId } = this.props 
         if (nextProps.postId !== this.props.postId) {
             dispatch(fetchPostById(postId))
@@ -37,40 +37,32 @@ class PostDetail extends Component {
         dispatch(addComment(comment))
     }
 
-    render() {
-        const { posts, postId } = this.props
-        const post = posts.find(data => data.id === postId)
-        if (post) {
-            return (
-                <div>
-                    <Post post={post} />
-                    <hr />
-                    <Container>
-                        <Row>
-                            <Col lg='12'>
-                                <Form onSubmit={e => this.handleSubmit(e, post)}>
-                                    <FormGroup>
-                                        <Label for='author'>Author:</Label>
-                                        <Input type='text' name='author' id='author' required/>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label for='comment'>Comment:</Label>
-                                        <Input type='textarea' name='comment' id='comment' rows='5' required/>
-                                    </FormGroup>
-                                    <Button>Submit</Button>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </Container>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    {`Could not find a Post with the Id: ${postId}`}
-                </div>
-            )
-        }
+    render = () => {
+        const { posts, match} = this.props
+        const post = posts.find(data => data.id === match.params.postId)
+        return (
+            <div>
+                <Post post={post} />
+                <hr />
+                <Container>
+                    <Row>
+                        <Col lg='12'>
+                            <Form onSubmit={e => this.handleSubmit(e, post)}>
+                                <FormGroup>
+                                    <Label for='author'>Author:</Label>
+                                    <Input type='text' name='author' id='author' required/>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for='comment'>Comment:</Label>
+                                    <Input type='textarea' name='comment' id='comment' rows='5' required/>
+                                </FormGroup>
+                                <Button>Submit</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
 

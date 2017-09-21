@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories, fetchPostsByCategory } from './actions'
-import { Container, Row, Col, ListGroup, ListGroupItem, Navbar, NavbarBrand } from 'reactstrap';
+import { Container, Row, Col, ListGroup, ListGroupItem, Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import Posts from './components/Posts'
 import PostDetail from './components/PostDetail'
 import PostForm from './components/PostForm'
@@ -25,6 +25,11 @@ class App extends Component {
         
         <Navbar color='faded' light toggleable>
           <NavbarBrand href='/'>Readable</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="/posts/add">Create Post</NavLink>
+            </NavItem>
+          </Nav>
         </Navbar>
         
         <Container className='mt-5'>
@@ -45,6 +50,8 @@ class App extends Component {
               <main>
                 <Switch>
                   <Route exact path='/' component={Posts}/>
+                  <Route exact path='/posts/add' component={PostForm}/>
+                  <Route exact path='/:category/:postId/edit' component={PostForm}/>
                   <Route exact path='/:category' render={({match}) => (
                       <Posts category={match.params.category} />
                   )}/>
@@ -61,8 +68,6 @@ class App extends Component {
                     </div>
                   )}/> */}
                   <Route exact path='/:category/:postId' component={PostDetail}/>
-                  <Route exact path='/posts/add' component={PostForm}/>
-                  <Route exact path='/posts/edit/:postId' component={PostForm}/>
                 </Switch>
               </main>
             </Col>
