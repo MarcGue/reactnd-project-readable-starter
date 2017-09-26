@@ -50,7 +50,7 @@ export const posts = (state = {
                 ...state,
                 isFetching: false,
                 showComments: true,
-                items: [action.post]
+                items: action.post.deleted === true ? [] : [action.post]
             }
         case REQUEST_INCREMENT_POST_SCORE:
             return {
