@@ -7,7 +7,7 @@ import { v1 } from 'uuid'
 
 class PostDetail extends Component {
     
-    componentDidMount() {
+    componentWillMount = () => {
         const { dispatch, match } = this.props
         dispatch(fetchPostById(match.params.postId))
     }
@@ -38,8 +38,14 @@ class PostDetail extends Component {
     }
 
     render = () => {
-        const { posts, match} = this.props
-        const post = posts.find(data => data.id === match.params.postId)
+        const { match, posts} = this.props
+        let post = posts.find(data => data.id === match.params.postId)
+        if (!post) {
+            post = {
+                id: match.params.postId,
+                category: 'Unknown'
+            }
+        }
         return (
             <div>
                 <Post post={post} />

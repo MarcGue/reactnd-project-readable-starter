@@ -52,9 +52,7 @@ class App extends Component {
                   <Route exact path='/' component={Posts}/>
                   <Route exact path='/posts/add' component={PostForm}/>
                   <Route exact path='/:category/:postId/edit' component={PostForm}/>
-                  <Route exact path='/:category' render={({match}) => (
-                      <Posts category={match.params.category} />
-                  )}/>
+                  <Route exact path='/:category' component={Posts}/>
                   {/* <Route exact path='/:category/:postId' render={({match}) => (
                     <div>
                       { 

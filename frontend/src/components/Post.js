@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchPostById, incrementPostScore, decrementPostScore, editPost, deletePost } from '../actions'
+import { incrementPostScore, decrementPostScore, editPost, deletePost } from '../actions'
 import { Container, Row, Col, Button } from 'reactstrap';
 import { MdCreate } from 'react-icons/lib/md'
 import { FaTrash } from 'react-icons/lib/fa'

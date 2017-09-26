@@ -7,18 +7,13 @@ import Post from '../components/Post'
 class Posts extends Component {
 
     componentDidMount() {
-        const { dispatch, category } = this.props
+        const { dispatch, match } = this.props
+
+        let category = match.params.category
         if (category) {
             dispatch(fetchPostsByCategory(category))
         } else {
             dispatch(fetchPosts())
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.category !== this.props.category) {
-            const { dispatch, category } = nextProps
-            dispatch(fetchPostsByCategory(category))
         }
     }
 
