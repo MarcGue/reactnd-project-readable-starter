@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import createHistory from 'history/createBrowserHistory'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { routerMiddleware } from 'react-router-redux'
 import reducers from './reducers'
 import { Provider } from 'react-redux'
@@ -24,9 +24,9 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-         <BrowserRouter history={history}>
+         <Router history={history}>
              <App />
-        </BrowserRouter>
+        </Router>
     </Provider>, 
     document.getElementById('root')
 )

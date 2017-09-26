@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form';
 import { addPost, editPost, fetchPostById } from '../actions'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { v1 } from 'uuid'
@@ -57,14 +58,6 @@ class PostForm extends Component {
         const { categories, posts, match } = this.props
         let header = match.path.endsWith('edit') ? 'Edit post' : 'Add post'
         let post = posts.find(data => data.id === match.params.postId)
-        if (!post) {
-            post = {
-                title: '',
-                category: categories[0],
-                author: '',
-                body: '',
-            } 
-        }
 
         return (
             <Form onSubmit={e => this.handleSubmit(e)}>
@@ -72,29 +65,35 @@ class PostForm extends Component {
                 <hr />
                 <FormGroup>
                     <Label for='title'>Title:</Label>
-                    <Input 
+                    <Field
+                        className='form-control'
                         type='text' 
                         name='title' 
-                        id='title' 
-                        value={post.title} 
-                        onChange={e => this.handleValueChanged(e, post)}
+                        id='title'
+                        component='input'
                         required/>
                 </FormGroup>
                 <FormGroup>
                     <Label for='category'>Category:</Label>
-                    <Input type="select" name='category' id='category' value={post.category} required>
+                    <Field
+                        className='form-control'
+                        type='select'
+                        name='category'
+                        id='category'
+                        component='select'
+                        required>
                         { categories.map(category => (
                             <option key={category}>{category}</option>
                         ))}
-                    </Input>
+                    </Field>
                 </FormGroup>
                 <FormGroup>
                     <Label for='author'>Author:</Label>
-                    <Input type='text' name='author' id='author' value={post.author} required/>
+                    <Field className='form-control' type='text' name='author' id='author' component='input' required/>
                 </FormGroup>
                 <FormGroup>
                     <Label for='body'>Value:</Label>
-                    <Input type='textarea' name='body' id='body' rows='5' value={post.body} required/>
+                    <Field className='form-control' type='textarea' name='body' id='body' rows='5' component='textarea' required/>
                 </FormGroup>
                 <Button>Submit</Button>
             </Form>
@@ -102,9 +101,13 @@ class PostForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
     categories: state.categories.items,
     posts: state.posts.items
 })
 
+
+PostForm = reduxForm({
+    form: 'PostForm' // a unique name for this form
+})(PostForm)
 export default withRouter(connect(mapStateToProps)(PostForm))
